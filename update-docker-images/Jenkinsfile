@@ -16,7 +16,7 @@ pipeline {
                     $class: 'GitSCM',
                     extensions: [
                         [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
-                            [path: 'docker_images'], [path: 'jenkins']
+                            [path: 'update-docker_images'], [path: 'jenkins']
                         ]]
                     ],
                     userRemoteConfigs: [
