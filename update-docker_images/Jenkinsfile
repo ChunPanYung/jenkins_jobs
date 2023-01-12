@@ -12,18 +12,19 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout([
-                    $class: 'GitSCM',
-                    extensions: [
-                        [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
-                            [path: 'update-docker_images'], [path: 'jenkins']
-                        ]]
-                    ],
-                    userRemoteConfigs: [
-                        [url: 'https://github.com/ChunPanYung/jenkins_jobs'],
-                        [url: 'https://github.com/ChunPanYung/docker_images']
-                    ]
-                ])
+                checkout scm
+                // checkout([
+                //     $class: 'GitSCM',
+                //     extensions: [
+                //         [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
+                //             [path: 'update-docker_images'], [path: 'jenkins']
+                //         ]]
+                //     ],
+                //     userRemoteConfigs: [
+                //         [url: 'https://github.com/ChunPanYung/jenkins_jobs'],
+                //         [url: 'https://github.com/ChunPanYung/docker_images']
+                //     ]
+                // ])
                 sh 'tree'
             }
         }
