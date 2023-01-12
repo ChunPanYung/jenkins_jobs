@@ -14,7 +14,11 @@ pipeline {
             steps {
                 // checkout scm
                 checkout scmGit(branches: [[name: '*/dev_dockers']],
-                    extensions: [cleanAfterCheckout()],
+                    extensions: [
+                        cleanAfterCheckout(),
+                        [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
+                            [path: 'update-docker_images']]]
+                    ],
                     userRemoteConfigs: [[url: 'https://github.com/ChunPanYung/jenkins_jobs']])
             }
         }
@@ -39,9 +43,7 @@ pipeline {
 
         stage('Prune unused images...') {
             steps {
-                sh '''#!/bin/bash
-                    docker image prune --force
-                '''
+                sh 'docker image prune --force'
             }
         } // End stage
     } // End stages
