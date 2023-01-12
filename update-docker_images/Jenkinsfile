@@ -25,7 +25,6 @@ pipeline {
                 //         [url: 'https://github.com/ChunPanYung/docker_images']
                 //     ]
                 // ])
-                sh 'tree'
             }
         }
 
