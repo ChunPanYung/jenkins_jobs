@@ -1,0 +1,34 @@
+
+pipeline {
+    agent any
+    options {
+        skipDefaultCheckout() // Manual checkout stage
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Remote SSH') {
+            environment {
+                SSH_KEY = credentials('ssh-server')
+            }
+            steps {
+                script{
+                    def remote = [:]
+                    remote.name = 'server'
+                    remote.host = 'cloud.lan'
+                    remote.allowAnyHosts = true
+
+                    remote.user = SSH_KEY_USR
+                    remote.identityFile = SSH_KEY
+
+                    sshCommand remote: remote, command: 'ls'
+                }
+            }
+        } // End stage Remote SSH
+    } // End stages
+}

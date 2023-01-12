@@ -1,0 +1,42 @@
+// Declarative pipeline
+pipeline {
+    agent any
+    options {
+        skipDefaultCheckout() // Manual checkout stage
+    }
+    parameters {
+        choice(name: 'ACTION', choices: ['update_all_images', 'build_images'])
+
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        } // End stage Checkout
+        stage('Update all images...') {
+            steps {
+                sh './docker_images/upgrade_all_images.sh'
+            }
+        } // End stage
+        stage('Prune unused images...') {
+            steps {
+                sh '''#!/bin/bash
+                    docker image prune --force
+                '''
+            }
+        } // End stage
+    } // End stages
+
+    post {
+        always {
+            echo 'List all docker images...'
+            sh 'docker images'
+        }
+        failure {
+            echo 'Job failed!'
+            cleanWs()
+        }
+    }
+}
