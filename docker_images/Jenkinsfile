@@ -12,14 +12,36 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                checkout([
+                    $class: 'GitSCM',
+                    extensions: [
+                        [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
+                            [path: 'docker_images'], [path: 'jenkins']
+                        ]]
+                    ],
+                    userRemoteConfigs: [
+                        [url: 'https://github.com/ChunPanYung/docker_images'],
+                        [url: 'https://github.com/ChunPanYung/jenkins_jobs']
+                    ]
+                ])
             }
-        } // End stage Checkout
+        }
+
         stage('Update all images...') {
             steps {
                 sh './docker_images/upgrade_all_images.sh'
             }
-        } // End stage
+        }
+
+        stage('Build custom docker images...') {
+            steps {
+                sh '''#!/usr/bin/env bash
+                    # docker compose build --pull
+                    tree
+                '''
+            }
+        }
+
         stage('Prune unused images...') {
             steps {
                 sh '''#!/bin/bash
