@@ -30,7 +30,10 @@ pipeline {
 
         stage('Update all images...') {
             steps {
-                sh 'ls -la'
+                sh '''
+                    ls -la
+                    pwd
+                '''
                 sh './upgrade_all_images.sh'
             }
         }
