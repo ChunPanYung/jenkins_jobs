@@ -34,7 +34,7 @@ pipeline {
                     ls -la
                     pwd
                 '''
-                sh './upgrade_all_images.sh'
+                sh './update-docker_images/upgrade_all_images.sh'
             }
         }
 
