@@ -13,7 +13,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // checkout scm
-                checkout scmGit(branches: [[name: '*/{BRANCH_NAME}']],
+                checkout scmGit(branches: [[name: '*/dev_dockers']],
                     extensions: [cleanAfterCheckout()],
                     userRemoteConfigs: [[url: 'https://github.com/ChunPanYung/jenkins_jobs']])
             }
