@@ -30,7 +30,8 @@ pipeline {
 
         stage('Update all images...') {
             steps {
-                sh './docker_images/upgrade_all_images.sh'
+                sh 'ls -la'
+                sh './upgrade_all_images.sh'
             }
         }
 
