@@ -13,7 +13,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // checkout scm
-                checkout scmGit(branches: [[name: '*/dev_dockers']],
+                checkout scmGit(branches: [[name: '*/dev_dockers'], [name: '*/main']],
                     extensions: [
                         cleanAfterCheckout(),
                         [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
