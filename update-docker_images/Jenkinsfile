@@ -19,7 +19,9 @@ pipeline {
                         [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
                             [path: 'update-docker_images']]]
                     ],
-                    userRemoteConfigs: [[url: 'https://github.com/ChunPanYung/jenkins_jobs']])
+                    userRemoteConfigs: [[url: 'https://github.com/ChunPanYung/jenkins_jobs'],
+                        [url: 'https://github.com/ChunPanYung/docker_images']]
+                ) // checkout
             }
         }
 
