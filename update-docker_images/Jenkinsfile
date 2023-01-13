@@ -13,13 +13,13 @@ pipeline {
         stage('Checkout') {
             steps {
                 // checkout scm
-                checkout scmGit(//branches: [[name: '*/dev_dockers'], [name: '*/main']],
+                checkout scmGit(branches: [[name: '*/main']],
                     extensions: [
                         cleanAfterCheckout(),
                         [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
                             [path: 'update-docker_images'], [path: 'jenkins']]]
                     ],
-                    userRemoteConfigs: [[url: 'https://github.com/ChunPanYung/jenkins_jobs/tree/dev_dockers'],
+                    userRemoteConfigs: [[url: 'https://github.com/ChunPanYung/jenkins_jobs/'],
                         [url: 'https://github.com/ChunPanYung/docker_images/']]
                 ) // checkout
             }
