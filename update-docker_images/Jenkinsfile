@@ -17,7 +17,7 @@ pipeline {
                     extensions: [
                         cleanAfterCheckout(),
                         [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
-                            [path: 'update-docker_images']]]
+                            [path: 'update-docker_images'], [path: 'jenkins']]]
                     ],
                     userRemoteConfigs: [[url: 'https://github.com/ChunPanYung/jenkins_jobs'],
                         [url: 'https://github.com/ChunPanYung/docker_images']]
